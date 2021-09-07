@@ -21,7 +21,7 @@ public interface RegexContainer {
 
     String REGEX_NAME_UKR = "^[А-ЩЬЮЯҐІЇЄ][а-щьюяґіїє']{1,20}$";
     String REGEX_NAME_LAT = "^[A-Z][a-z]{1,20}$";
-    String REGEX_LOGIN = "^[A-Za-z0-9_-]{8,20}$";
+    String REGEX_LOGIN = "[A-Za-z0-9_-]{1,20}";
     String FOR_COMMENTS = "^[A-Z][a-z]{1,20}$";
     String GROUP = "[A-Z]{4,9}";
     String PHONE_NUMBER = "^[0-9]{6,20}$";

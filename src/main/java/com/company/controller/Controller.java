@@ -11,9 +11,14 @@
  * terms of the license agreement you entered into with Mihail Gerashchenko.
  */
 package com.company.controller;
+
 import com.company.model.Model;
+import com.company.model.entity.NotUniqueLoginException;
+import com.company.model.entity.NoteBook;
 import com.company.view.View;
+
 import java.util.Scanner;
+
 /**
  * My programme aimed at users who need either to validate registration or subscription.
  *
@@ -33,6 +38,26 @@ public class Controller {
         Scanner sc = new Scanner(System.in);
         InputNoteNoteBook inputNoteNoteBook = new InputNoteNoteBook(view, sc, model);
         inputNoteNoteBook.inputNote();
-        System.out.println(model);
+
+        NoteBook noteBook =
+                getNoteBook(inputNoteNoteBook);
+        System.out.println(noteBook);
+        // System.out.println(model);
+    }
+
+    private NoteBook getNoteBook(InputNoteNoteBook inputNoteNoteBook) {
+        NoteBook noteBook = null;
+        for (; ; ) {
+            try {
+                noteBook = new NoteBook(inputNoteNoteBook.getFirstName(),
+                        inputNoteNoteBook.getNickName());
+                break;
+            } catch (NotUniqueLoginException e) {
+                e.printStackTrace();
+                System.out.println("Not unique login" + e.getLoginData());
+            //    inputNoteNoteBook.inputLogin();
+            }
+        }
+        return noteBook;
     }
 }

@@ -201,5 +201,8 @@ public class InputNoteNoteBook {
         this.comprehensiveAdress = sb.toString();
         return true;
     }
+  //  protected void inputLogin(){
+
+   // }
 }
 
