@@ -11,6 +11,7 @@
  * terms of the license agreement you entered into with Mihail Gerashchenko.
  */
 package com.company.controller;
+
 /**
  * My programme aimed at users who need either to validate registration or subscription.
  *

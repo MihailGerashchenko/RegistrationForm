@@ -11,11 +11,18 @@
  * terms of the license agreement you entered into with Mihail Gerashchenko.
  */
 package com.company.controller;
+
 import com.company.model.Model;
+import com.company.model.entity.DBNoteBook;
+import com.company.model.entity.NotUniqueLoginException;
+import com.company.model.entity.NoteBook;
 import com.company.view.View;
+
 import java.util.Scanner;
+
 import static com.company.controller.RegexContainer.*;
 import static com.company.view.TextConstant.*;
+
 /**
  * My programme aimed at users who need either to validate registration or subscription.
  *
@@ -26,6 +33,7 @@ public class InputNoteNoteBook {
     private View view;
     private Scanner sc;
     private Model model;
+    private NoteBook noteBook;
 
     public InputNoteNoteBook() {
     }
@@ -56,6 +64,10 @@ public class InputNoteNoteBook {
     private String comprehensiveAdress;
     private String inputDate;
     private String lastChangeDate;
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public String getSurname() {
         return surname;
@@ -137,6 +149,7 @@ public class InputNoteNoteBook {
         return comprehensiveAdress;
     }
 
+
     public void inputNote() {
         UtilityController utilityController = new UtilityController(sc, view);
         String str = (String.valueOf(View.bundle.getLocale()).equals("ua"))
@@ -145,7 +158,9 @@ public class InputNoteNoteBook {
         this.surname = utilityController.inputStringValueWithScanner(SURNAME_DATA, str);
         this.firstName = utilityController.inputStringValueWithScanner(FIRST_NAME_DATA, str);
         this.fathersName = utilityController.inputStringValueWithScanner(FATHERSNAME_DATA, str);
+
         this.nickName = utilityController.inputStringValueWithScanner(NICKNAME_DATA, REGEX_LOGIN);
+        getNoteBook(sc, getFirstName(), getNickName(), utilityController);
         this.comments = utilityController.inputStringValueWithScanner(COMMENTS_DATA, FOR_COMMENTS);
         this.group = Group.valueOf(utilityController.inputStringValueWithScanner(GROUP_DATA, GROUP));
         this.homePhone = utilityController.inputStringValueWithScanner(HOME_NUMBER_DATA, PHONE_NUMBER);
@@ -201,8 +216,35 @@ public class InputNoteNoteBook {
         this.comprehensiveAdress = sb.toString();
         return true;
     }
-  //  protected void inputLogin(){
 
-   // }
+    public NoteBook getNoteBook(Scanner sc, String firstName, String nickName, UtilityController utilityController) {
+        NoteBook noteBook = null;
+        for (; ; ) {
+            try {
+                noteBook = new NoteBook(firstName, nickName);
+
+                break;
+            } catch (NotUniqueLoginException e) {
+                e.printStackTrace();
+                System.out.println("Not unique login " + e.getLoginData());
+                getLoginMethod(sc, utilityController);
+            }
+        }
+        return noteBook;
+    }
+
+    private void getLoginMethod(Scanner sc, UtilityController utilityController) {
+        for (; ; ) {
+            String res = sc.nextLine();//utilityController.inputStringValueWithScanner(NICKNAME_DATA, REGEX_LOGIN);
+
+            if (DBNoteBook.chekLogin(res)) {
+                continue;
+            } else {
+                setNickName(res);
+                //    setNickName();
+                break;
+            }
+        }
+    }
 }
 

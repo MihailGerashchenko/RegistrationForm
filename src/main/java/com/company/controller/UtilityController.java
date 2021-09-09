@@ -11,8 +11,12 @@
  * terms of the license agreement you entered into with Mihail Gerashchenko.
  */
 package com.company.controller;
+
+import com.company.model.entity.NotUniqueLoginException;
 import com.company.view.View;
+
 import java.util.Scanner;
+
 /**
  * My programme aimed at users who need either to validate registration or subscription.
  *

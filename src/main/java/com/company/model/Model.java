@@ -11,7 +11,10 @@
  * terms of the license agreement you entered into with Mihail Gerashchenko.
  */
 package com.company.model;
+
 import com.company.controller.Group;
+import com.company.model.entity.NoteBook;
+
 /**
  * My programme aimed at users who need either to validate registration or subscription.
  *

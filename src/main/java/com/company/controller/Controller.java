@@ -38,26 +38,14 @@ public class Controller {
         Scanner sc = new Scanner(System.in);
         InputNoteNoteBook inputNoteNoteBook = new InputNoteNoteBook(view, sc, model);
         inputNoteNoteBook.inputNote();
+        System.out.println(model);
 
-        NoteBook noteBook =
-                getNoteBook(inputNoteNoteBook);
-        System.out.println(noteBook);
-        // System.out.println(model);
-    }
 
-    private NoteBook getNoteBook(InputNoteNoteBook inputNoteNoteBook) {
-        NoteBook noteBook = null;
-        for (; ; ) {
-            try {
-                noteBook = new NoteBook(inputNoteNoteBook.getFirstName(),
-                        inputNoteNoteBook.getNickName());
-                break;
-            } catch (NotUniqueLoginException e) {
-                e.printStackTrace();
-                System.out.println("Not unique login" + e.getLoginData());
-            //    inputNoteNoteBook.inputLogin();
-            }
-        }
-        return noteBook;
+//        NoteBook noteBook =
+//                getNoteBook(inputNoteNoteBook);
+//        System.out.println(noteBook);
+//        // System.out.println(model);
+//    }
+
     }
 }
