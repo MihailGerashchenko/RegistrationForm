@@ -36,16 +36,25 @@ public class Controller {
 
     public void processUser() {
         Scanner sc = new Scanner(System.in);
-        InputNoteNoteBook inputNoteNoteBook = new InputNoteNoteBook(view, sc, model);
+        InputNoteNoteBook inputNoteNoteBook = new InputNoteNoteBook(view, sc);
         inputNoteNoteBook.inputNote();
-        System.out.println(model);
+        NoteBook noteBook = getNoteBook(inputNoteNoteBook);
+        System.out.println(noteBook);
 
-
-//        NoteBook noteBook =
-//                getNoteBook(inputNoteNoteBook);
-//        System.out.println(noteBook);
-//        // System.out.println(model);
-//    }
-
+    }
+    public NoteBook getNoteBook(InputNoteNoteBook inputNoteNoteBook) {
+        NoteBook noteBook = null;
+        while(true) {
+            try {
+                noteBook = new NoteBook(inputNoteNoteBook.getFirstName(),
+                        inputNoteNoteBook.getLogin());
+                break;
+            } catch (NotUniqueLoginException e) {
+                e.printStackTrace();
+                System.out.println("Your login is not unique " + e.getLoginData());
+                inputNoteNoteBook.inputLogin();
+            }
+        }
+        return noteBook;
     }
 }
